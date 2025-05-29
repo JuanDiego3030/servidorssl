@@ -1,6 +1,0 @@
-Django==4.2
-gunicorn==21.2.0
-nginx==1.21.6
-djangorestframework==3.14.0
-django-basic-auth==1.0.0
-certbot-nginx==1.23.0
