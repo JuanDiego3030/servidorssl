@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoRepuestos - Venta de Repuestos para Motos</title>
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-wrapper">
+                <a href="#" class="logo">Moto<span>Repuestos</span></a>
+                <nav>
+                    <ul class="nav-list">
+                        <li><a href="#welcome" class="active">Inicio</a></li>
+                        <li><a href="#about">Nosotros</a></li>
+                        <li><a href="#extensions">Catálogo</a></li>
+                        <li><a href="#events">Ofertas</a></li>
+                        <li><a href="#birthdays">Contacto</a></li>
+                    </ul>
+                </nav>
+                <button class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Welcome Area -->
+    <section id="welcome" class="welcome-area">
+        <div class="container">
+            <div class="welcome-content">
+                <div class="welcome-text">
+                    <h1>Bienvenido a MotoRepuestos</h1>
+                    <p>Tu tienda de confianza para la venta de repuestos y accesorios para motos. Encuentra calidad, variedad y los mejores precios para tu moto.</p>
+                    <a href="#extensions" class="btn">Ver Catálogo</a>
+                </div>
+                <div class="welcome-image">
+                    <img src="{% static 'images/logo.png' %}" alt="MotoRepuestos">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section section">
+        <div class="container">
+            <h2 class="section-title">Sobre Nosotros</h2>
+            <p class="section-subtitle">Especialistas en repuestos y accesorios para motos de todas las marcas.</p>
+            
+            <div class="mission-content">
+                <div class="mission-image">
+                    <img src="{% static 'images/repuesto1.jpeg' %}" alt="Nuestra Misión">
+                </div>
+                <div class="mission-text">
+                    <h2>Nuestra Misión</h2>
+                    <p>
+                        Ofrecer a nuestros clientes repuestos y accesorios de la mejor calidad, garantizando seguridad y confianza en cada compra. Contamos con un equipo especializado y atención personalizada.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="vision-content">
+                <div class="vision-image">
+                    <img src="{% static 'images/repuesto2.jpeg' %}" alt="Nuestra Visión">
+                </div>
+                <div class="vision-text">
+                    <h2>Visión</h2>
+                    <p>
+                        Ser la tienda líder en venta de repuestos para motos, reconocida por la excelencia en el servicio y la satisfacción de nuestros clientes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Repuestos -->
+<section id="extensions" class="extensions-section section">
+    <div class="container">
+        <h2 class="section-title">Catálogo de Repuestos</h2>
+        <p class="section-subtitle">Encuentra rápidamente los repuestos y accesorios que tu moto necesita.</p>
+        <div class="extensions-grid">
+            {% for producto in productos %}
+            <div class="extension-card">
+                <div class="card-header">
+                    <h3>{{ producto.nombre }}</h3>
+                </div>
+                <div class="card-body">
+                    {% if producto.imagen %}
+                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" style="max-width:100px;">
+                    {% endif %}
+                    <p>{{ producto.descripcion }}</p>
+                    <p><strong>Precio:</strong> {{ producto.precio }} Bs</p>
+                    <p><strong>Stock:</strong> {{ producto.stock }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p>No hay productos disponibles.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Ofertas Especiales -->
+<section id="events" class="events-section section">
+    <div class="container">
+        <h2 class="section-title">Ofertas Especiales</h2>
+        <p class="section-subtitle">Aprovecha los descuentos y promociones en repuestos seleccionados.</p>
+        <div class="events-slider">
+            <div class="slider-container">
+                {% for oferta in ofertas %}
+                <div class="event-item">
+                    <div class="event-card">
+                        <div class="event-image">
+                            {% if oferta.imagen %}
+                                <img src="{{ oferta.imagen.url }}" alt="{{ oferta.producto.nombre }}">
+                            {% endif %}
+                            <div class="event-date">
+                                <i class="fas fa-calendar-alt"></i> Oferta
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <h3 class="event-title">{{ oferta.producto.nombre }}</h3>
+                            <p class="event-description">{{ oferta.descripcion }}</p>
+                            <div class="event-meta">
+                                <div class="event-location">
+                                    <i class="fas fa-tag"></i>
+                                    <span>Antes: {{ oferta.precio_original }} Bs | Ahora: {{ oferta.precio_descuento }} Bs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No hay ofertas disponibles.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Birthdays Section -->
+<section id="birthdays" class="birthdays-section section">
+    <div class="container">
+        <h2 class="section-title">Contacto</h2>
+        <p class="section-subtitle">¿Tienes dudas o necesitas un repuesto específico? Escríbenos.</p>
+        
+        <div class="birthday-slider">
+            <div class="slider-container">
+                <div class="birthday-card">
+                    <div class="birthday-icon-container">
+                        <i class="fas fa-envelope birthday-icon"></i>
+                        <div class="confetti"></div>
+                    </div>
+                    <h3>Formulario de Contacto</h3>
+                    <ul class="birthday-list">
+                        <li>
+                            <strong>Correo:</strong> contacto@motorepuestos.com
+                        </li>
+                        <li>
+                            <strong>Teléfono:</strong> +58 424-0000000
+                        </li>
+                        <li>
+                            <strong>Dirección:</strong> Av. Principal, Ciudad, País
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <a href="#" class="footer-logo">Moto<span>Repuestos</span></a>
+                <p>&copy; 2025 MotoRepuestos. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
